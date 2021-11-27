@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 /**
  * @OA\Info(
  *      version="1.0.0",
- *      title="Agency Documentation",
+ *      title="Agency Documentation1",
  *      description="Agency OpenApi description",
  *      @OA\License(
  *          name="Apache 2.0",
