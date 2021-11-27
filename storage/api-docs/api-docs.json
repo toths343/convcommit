@@ -1,0 +1,340 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Agency Documentation",
+        "description": "Agency OpenApi description",
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Agency API Server"
+        }
+    ],
+    "paths": {
+        "/api/v1/invoice": {
+            "get": {
+                "tags": [
+                    "Invoices"
+                ],
+                "summary": "Get list of invoices",
+                "description": "Returns list of invoices",
+                "operationId": "getInvoiceList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Invoice"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/invoice/{id}": {
+            "get": {
+                "tags": [
+                    "Invoices"
+                ],
+                "summary": "Get invoice item",
+                "description": "Returns invoice item",
+                "operationId": "getInvoiceById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Invoice id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvoiceResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "InvoiceResource": {
+                "title": "InvoiceResource",
+                "properties": {
+                    "data": {
+                        "$ref": "#/components/schemas/Invoice"
+                    }
+                },
+                "type": "object"
+            },
+            "Currency": {
+                "title": "Currency",
+                "properties": {
+                    "curr_id": {
+                        "type": "integer"
+                    },
+                    "curr_sname": {
+                        "type": "string"
+                    },
+                    "curr_lname": {
+                        "type": "string"
+                    },
+                    "curr_sign": {
+                        "type": "string"
+                    },
+                    "curr_order": {
+                        "type": "integer"
+                    },
+                    "curr_created": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "curr_creater": {
+                        "type": "string"
+                    },
+                    "curr_lastupd": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "curr_modifier": {
+                        "type": "string"
+                    },
+                    "curr_del": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "invoice_items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InvoiceItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Invoice": {
+                "title": "Invoice",
+                "properties": {
+                    "inv_id": {
+                        "type": "integer"
+                    },
+                    "inv_status": {
+                        "type": "string"
+                    },
+                    "inv_type": {
+                        "type": "string"
+                    },
+                    "inv_year": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "inv_registration_number": {
+                        "type": "string"
+                    },
+                    "inv_number": {
+                        "type": "string"
+                    },
+                    "inv_subject": {
+                        "type": "string"
+                    },
+                    "inv_arrived_date": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "inv_payment_method": {
+                        "type": "string"
+                    },
+                    "inv_bank_card_number": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "inv_fulfillment_date": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "inv_date_of_issue": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "inv_payment_deadline": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "inv_paid_date": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "inv_payment_allowed": {
+                        "type": "boolean"
+                    },
+                    "inv_description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "inv_net_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_gross_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_vat_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_exchange_rate": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_net_amount_huf": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_gross_amount_huf": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_vat_amount_huf": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "inv_created": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "inv_creater": {
+                        "type": "string"
+                    },
+                    "inv_lastupd": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "inv_modifier": {
+                        "type": "string"
+                    },
+                    "inv_del": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "invoice_items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InvoiceItem"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "InvoiceItem": {
+                "title": "InvoiceItem",
+                "properties": {
+                    "iitem_id": {
+                        "type": "integer"
+                    },
+                    "iitem_inv_id": {
+                        "type": "integer"
+                    },
+                    "iitem_curr_id": {
+                        "type": "integer"
+                    },
+                    "iitem_name": {
+                        "type": "string"
+                    },
+                    "iitem_description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "iitem_quantity": {
+                        "type": "integer"
+                    },
+                    "iitem_unit": {
+                        "type": "string"
+                    },
+                    "iitem_unit_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "iitem_net_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "iitem_gross_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "iitem_vat_amount": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "iitem_created": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "iitem_creater": {
+                        "type": "string"
+                    },
+                    "iitem_lastupd": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41"
+                    },
+                    "iitem_modifier": {
+                        "type": "string"
+                    },
+                    "iitem_del": {
+                        "type": "string",
+                        "example": "2021-11-26 09:31:41",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "$ref": "#/components/schemas/Currency"
+                    },
+                    "invoice": {
+                        "$ref": "#/components/schemas/Invoice"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
